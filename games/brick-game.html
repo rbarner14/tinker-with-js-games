@@ -5,7 +5,7 @@
 // Try editing the following lines!
 var canvasWidth = 640
 var canvasHeight = 480
-var gameTitleText = "Welcome to the MADE!"
+var gameTitleText = "Welcome to this awesome game!!!"
 var gameOverText = "Nice try! Avoid the ceiling, floor, and wall!"
 var textColor = "black"
 var backgroundColor = "white"
@@ -17,8 +17,28 @@ var backgroundColor = "white"
 // The fifth parameter is the box's height
 // The sixth parameter is the box's speed
 var player = makeBox("blue", 50, 200, 25, 25, 2)
-var wall = makeBox("red", 615, 200, 25, 75, 3)
 
+player.showImage("http://exclaim.ca/images/pharrellslider.jpg")
+
+var walls = []
+
+for(var i = 0; i < 7; i++){
+   var colors = ["red", "pink", "yellow", "black"];
+   var x = 615;
+   var y = 200;
+   var width = 25;
+   var height = 75 ;
+   var speed = [1,2,3,4,5,6];
+  
+   walls.push(makeBox(colors[i], x, y, width, height, speed[i]));
+}
+
+var wall = makeBox("red", 615, 200, 25, 75, 3) //color, x, y, width, height, speed
+var wall2 = makeBox("pink", 615, 200, 50, 80, 6) //wall is fatter, longer, and faster
+var wall3 = makeBox("yellow", 615, 200, 15, 40, 2) //wall is skinnier, shorter, and slower
+var walls2 = [wall, wall2, wall3]
+
+	
 // Warning!!
 // Warning!! This is more advanced stuff--don't worry if it's super confusing right now!
 // Warning!!
@@ -52,6 +72,9 @@ function gameLoop(time) {
     player.y = player.y + player.speed
   }
 
+for(var i = 0; i < walls.length; i++){
+  var wall = walls[i]
+
   // Move the wall left
   wall.x = wall.x - wall.speed
 
@@ -74,6 +97,7 @@ function gameLoop(time) {
     // Draw the wall
     wall.draw()
   }
+}
 
   // Game over if the player hits the top or the bottom
   if ( player.y < 0 || (player.y + player.height) > canvasHeight) {
